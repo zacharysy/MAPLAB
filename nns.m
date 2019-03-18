@@ -7,17 +7,18 @@ function [path, finalDest] = nns(nodes, destination)
     currentNode = startNode;
     visited(1) = currentNode.Name;
     distances(1) = 0;
-    
+     
 %% Search: Get adjacents -> find min(adjacents) -> update state & current node
-    while currentNode.Name ~= destination.Name
+    while ~strcmp(currentNode.Name,destination.Name)
         count = 2;  % <count> starts at 2 since entry 1 is the current node
         adjDist = currentNode.AdjacentDistances;
         
         for i=1:length(adjDist)
-            j = least(adjDist, i);
-            visited(count) = currentNode.Name;
+            j = least(adjDist, 1);
+            visited = [visited, currentNode];
             distances(count) = adjDist(j);
-            currentNode = currentNode.AdjacentNodes(j);
+            [~, k] = nodeInArray(nodes, currentNode.AdjacentNodes(j));
+            currentNode = nodes(k);
         end
         count = count + 1;
     end
