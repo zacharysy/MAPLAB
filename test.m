@@ -9,6 +9,10 @@ G = graph(s,t,weights,nodeNames);
 
 plot(G,'EdgeLabel',G.Edges.Weight)
 
+[a, b] = nns(nodes, node2);
+disp(a);
+disp(b);
+
 %
 %   --5--n3
 %  /      | \5

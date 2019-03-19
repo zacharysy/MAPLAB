@@ -2,7 +2,7 @@ classdef Node
     properties
         Name % String
         AdjacentNodes % Array of Nodes
-        AdjacentDistances % $Array of Ints (can't put different data types in array so gotta have two arrays :( )
+        AdjacentDistances % Array of Ints (can't put different data types in array so gotta have two arrays :( )
         Building % Boolean
     end
 
