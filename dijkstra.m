@@ -1,4 +1,4 @@
-function [path,finalDist] = dijkstra(nodes)
+function [path,finalDist] = dijkstra(graph)
     startNode = nodes(1);
     visited = [];
     distances = zeros(1,length(nodes));
@@ -14,7 +14,7 @@ function [path,finalDist] = dijkstra(nodes)
             distances(i) = 0;
         end
     end
-    
+
     currentNode = startNode;
 
 %% Visiting Adjacents
@@ -51,7 +51,7 @@ function [path,finalDist] = dijkstra(nodes)
 
         fromNode(i) = currentNode.Name;
         currentNode = nodes(i);
-        
+
     end
 
 
@@ -72,7 +72,7 @@ end
 % Finds if node with name 'node' is in an array
 function [bool,index] = nodeInArray(arr,node)
     bool = 0;
-    index = 0;
+    index = inf;
 
     for i = 1:length(arr)
         if strcmp(arr(i).Name,node)
