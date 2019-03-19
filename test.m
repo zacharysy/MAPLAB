@@ -7,11 +7,12 @@ weights = [10 5 2 1 5];
 nodeNames = {'N1' 'N2' 'N3' 'N4'};
 G = graph(s,t,weights,nodeNames);
 
-plot(G,'EdgeLabel',G.Edges.Weight)
+%plot(G,'EdgeLabel',G.Edges.Weight)
+%[a, b] = nns(nodes, node2);
+%disp(a);
+%disp(b);
 
-[a, b] = nns(nodes, node2);
-disp(a);
-disp(b);
+[path,dist] = dijkstra(G,'N1')
 
 %
 %   --5--n3
