@@ -48,8 +48,8 @@ function [path,finalDist] = dijkstra(aGraph, startName)
 
 %% Update current node! yay.
 
-        fromNode(i) = currentNode;
-        currentNode = findnode(aGraph,i);
+        fromNode(nextNode) = currentNode;
+        currentNode = findnode(aGraph,nextNode);
 
     end
 
