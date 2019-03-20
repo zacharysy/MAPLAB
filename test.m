@@ -12,7 +12,8 @@ G = graph(s,t,weights,nodeNames);
 %disp(a);
 %disp(b);
 
-[path,dist] = dijkstra(G,'N1')
+[path,dist] = dijkstra(G,'N1');
+[p, d] = nns(G, 'N1', 'N4')
 
 %
 %   --5--n3
