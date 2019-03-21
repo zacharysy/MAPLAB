@@ -37,13 +37,13 @@ function [path,finalDist] = dijkstra(aGraph, startName)
 %% Finding Next Node with Least Distance
         count = 0;
         nextNode = least(distances,count);
-        [bool,~] = nodeInArray(visited,findnode(aGraph,nextNode));
+        bool = sum(ismember(visited,findnode(aGraph,nextNode)));
 
         % repeats until an univisited node with least distance is found
         while bool
             count = count + 1;
             nextNode = least(distances,count);
-            [bool,~] = nodeInArray(visited,findnode(aGraph,nextNode));
+            bool = sum(ismember(visited,findnode(aGraph,nextNode)));
         end
 
 %% Update current node! yay.
