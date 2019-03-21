@@ -6,10 +6,9 @@ function [path, distanceHist] = nns(Graph, start, destination)
     currentNode = startNode;
 
 %   Initialize path and distances arrays
-    path = zeros(1, length(numnodes(Graph)));
     distanceHist = zeros(1, length(numnodes(Graph)));
     
-    visited = [];
+    path = [currentNode];
     nextNode = 0;
     
     while currentNode ~= destNode
@@ -17,26 +16,37 @@ function [path, distanceHist] = nns(Graph, start, destination)
         weights = zeros(1, length(neighbors(Graph, currentNode)));
         
         for i=1:length(adjacents)
-            weights(i) = Graph.Edges.Weight(findedge(Graph, currentNode, neighbor));
             neighbor = adjacents(i);
-            
-            if distanceHist(neighbor) > (distanceHist(currentNode) + weight)
-                distanceHist(neighbor) = distanceHist(currentNode) + weight
-            end
+            weights(i) = Graph.Edges.Weight(findedge(Graph, currentNode, neighbor));            
         end
         
-        leastEdge = find(weights == min(weights));
-        nextNode = findnode(adjacents(leastEdge));
-        currentNode = nextNode;
-        visited = [visited, currentNode];
+        leastEdgeIndex = find(weights == min(weights));
+        nextNode = findnode(Graph, adjacents(leastEdgeIndex));
+        distanceHist = [distanceHist, weights(leastEdgeIndex)];
+        
+        while sum(ismember(path, nextNode))
+            adjacents(leastEdgeIndex) = [];
+            weights(leastEdgeIndex) = [];
             
+            for i=1:length(adjacents)
+                neighbor = adjacents(i);
+                weights(i) = Graph.Edges.Weight(findedge(Graph, currentNode, neighbor));            
+            end
+            
+        end
+        
+        currentNode = nextNode;
+        path = [path, currentNode];
     end
-    
-    path = visited;
+        
+            
 end
+    
+
 
 
 %{
+
 
     for i=1:length(adjacents)
         if Graph.Edges.Weight(findedge(Graph, currentNode, adjacents(i))) == leastEdge
@@ -95,4 +105,4 @@ function [bool,index] = nodeInArray(arr,node)
         end
     end
 end
-}%
+%}
