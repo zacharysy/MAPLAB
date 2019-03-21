@@ -67,17 +67,3 @@ function i = least(nodeDist,ignore)
     sorted = sort(nodeDist);
     i = find(nodeDist==sorted(1+ignore),1);
 end
-
-% Finds if node with name 'node' is in an array
-function [bool,index] = nodeInArray(arr,node)
-    bool = 0;
-    index = inf;
-
-    for i = 1:length(arr)
-        if arr(i) == node
-            bool = 1;
-            index = i;
-        end
-    end
-
-end
