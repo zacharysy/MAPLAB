@@ -11,14 +11,8 @@ plot(G,'EdgeLabel',G.Edges.Weight)
 %[a, b] = nns(nodes, node2);
 %disp(a);
 %disp(b);
-
-<<<<<<< HEAD
-%[path,dist] = dijkstra(G,'N1');
-[p, d] = nns(G, 'N4', 'N1')
-=======
 [path,dist] = dijkstra(G,'N4','N1')
 [p, d] = nns(G, 'N1', 'N4')
->>>>>>> 84567906711e0516d6b38f9c78909eb08049d891
 
 %
 %   --5--n3
