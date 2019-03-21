@@ -5,7 +5,7 @@ function [path,finalDist] = dijkstra(aGraph, startName, endName)
 
     visited = [];
     distances = zeros(1,numnodes(aGraph));
-    fromNode = zeros(1,numnodes(aGraph));
+    fromNode = [];
 
 %% Initial Values
     for i = 1:length(distances)
@@ -17,7 +17,7 @@ function [path,finalDist] = dijkstra(aGraph, startName, endName)
     currentNode = startNode;
 
 %% Visiting Adjacents
-    while length(visited) < numnodes(aGraph)
+    while length(visited) <= numnodes(aGraph)
         adjacents = neighbors(aGraph,currentNode);
     
         % Records distances to adjacent nodes
@@ -40,7 +40,7 @@ function [path,finalDist] = dijkstra(aGraph, startName, endName)
         bool = sum(ismember(visited,findnode(aGraph,nextNode)));
 
         % repeats until an univisited node with least distance is found
-        while bool && ~(length(visited)==numnodes(aGraph))
+        while bool && ~length(visited)
             count = count + 1;
             nextNode = least(distances,count);
             bool = sum(ismember(visited,findnode(aGraph,nextNode)));
