@@ -1,35 +1,34 @@
-function [path,finalDist] = dijkstra(nodes)
-    startNode = nodes(1);
+function [path,finalDist] = dijkstra(aGraph, startName, endName)
+    startNode = findnode(aGraph,startName);
+    endNode = findnode(aGraph,endName);
+    path = [];
+
     visited = [];
-    distances = zeros(1,length(nodes));
-    fromNode = strings(1,length(nodes));
+    distances = zeros(1,numnodes(aGraph));
+    fromNode = zeros(1,numnodes(aGraph));
 
 %% Initial Values
     for i = 1:length(distances)
         distances(i) = inf;
     end
 
-    for i = 1:length(nodes)
-        if nodes(i).Name == startNode.Name
-            distances(i) = 0;
-        end
-    end
-    
+    distances(startNode) = 0;
+
     currentNode = startNode;
 
 %% Visiting Adjacents
-    while length(visited) < length(nodes)-1
-        nodeDist = currentNode.AdjacentDistances;
-        adjacents = currentNode.AdjacentNodes;
-
+    while length(visited) < numnodes(aGraph)
+        adjacents = neighbors(aGraph,currentNode);
+    
         % Records distances to adjacent nodes
         for i = 1:length(adjacents)
-            [~,nodeIndex] = nodeInArray(nodes,currentNode.Name);
-            [~,j] = nodeInArray(nodes,adjacents(i));
-            [bool,~] = nodeInArray(visited,adjacents(i));
+            neighbor = adjacents(i);
+            weight = aGraph.Edges.Weight(findedge(aGraph,currentNode,neighbor));
+            newDist = distances(currentNode) + weight;
 
-            if(distances(j)>nodeDist(i) && ~bool)
-                distances(j) = distances(nodeIndex) + nodeDist(i);
+            if distances(neighbor) > newDist
+                distances(neighbor) = newDist;
+                fromNode(neighbor) = currentNode;
             end
         end
 
@@ -37,27 +36,41 @@ function [path,finalDist] = dijkstra(nodes)
 
 %% Finding Next Node with Least Distance
         count = 0;
-        i = least(distances,count);
-        [bool,~] = nodeInArray(visited,nodes(i).Name);
+        nextNode = least(distances,count);
+        bool = sum(ismember(visited,findnode(aGraph,nextNode)));
 
         % repeats until an univisited node with least distance is found
-        while bool
+        while bool && ~(length(visited)==numnodes(aGraph))
             count = count + 1;
-            i = least(distances,count);
-            [bool,~] = nodeInArray(visited,nodes(i).Name);
+            nextNode = least(distances,count);
+            bool = sum(ismember(visited,findnode(aGraph,nextNode)));
         end
 
 %% Update current node! yay.
+        currentNode = findnode(aGraph,nextNode);
 
-        fromNode(i) = currentNode.Name;
-        currentNode = nodes(i);
-        
     end
 
 
+%% Creates a readable path
+    path = [path,endNode];
+    finalDist = [distances(endNode)];
+    lastNode = endNode;
+
+    while lastNode > 0
+        visit = fromNode(lastNode);
+
+        if visit
+            path = [path,visit];
+            finalDist = [finalDist,distances(visit)];
+        end
+
+        lastNode = visit;
+    end
+    
 %% Done
-    path = fromNode;
-    finalDist = distances;
+    path = fliplr(path);
+    finalDist = fliplr(finalDist);
 end
 
 
@@ -67,17 +80,4 @@ end
 function i = least(nodeDist,ignore)
     sorted = sort(nodeDist);
     i = find(nodeDist==sorted(1+ignore),1);
-end
-
-% Finds if node with name 'node' is in an array
-function [bool,index] = nodeInArray(arr,node)
-    bool = 0;
-    index = 0;
-
-    for i = 1:length(arr)
-        if strcmp(arr(i).Name,node)
-            bool = 1;
-            index = i;
-        end
-    end
 end
