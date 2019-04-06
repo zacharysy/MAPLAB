@@ -18,7 +18,15 @@ function [path,finalDist] = dijkstra(aGraph, startName, endName)
 
 %% Visiting Adjacents
     while length(visited) < numnodes(aGraph)
-        adjacents = neighbors(aGraph,currentNode);
+        tempAdjacents = neighbors(aGraph,currentNode);
+        adjacents = [];
+        
+        % remove adjacent if visited already
+        for i = 1:length(tempAdjacents)
+            if ~sum(ismember(visited,tempAdjacents(i)))
+                adjacents = [adjacents,tempAdjacents(i)];
+            end
+        end
     
         % Records distances to adjacent nodes
         for i = 1:length(adjacents)
@@ -74,7 +82,7 @@ function [path,finalDist] = dijkstra(aGraph, startName, endName)
 end
 
 
-%% Some functions I had to make cuz MATLAB doesn't have shit I need
+%% Some functions I had to make cuz MATLAB doesn't have stuff I need
 
 % Gets index of node with least distance
 function i = least(nodeDist,ignore)
