@@ -87,5 +87,6 @@ end
 % Gets index of node with least distance
 function i = least(nodeDist,ignore)
     sorted = sort(nodeDist);
+
     i = find(nodeDist==sorted(1+ignore),1);
 end
