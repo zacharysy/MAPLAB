@@ -13,10 +13,9 @@ plot(G,'EdgeLabel',G.Edges.Weight)
 %disp(b);
 
 % [path,dist] = dijkstra(G,'N4','N1')
-[p, d] = nns(G, 'N2', 'N1')
 
 [path,dist] = longestPath(G,'N1','N4')
-[p, d] = nns(G, 'N1', 'N4')
+[p, d] = nns(G, 'N1', 'N4', 'N0')
 
 %
 %   --5--n3
