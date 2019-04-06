@@ -9,6 +9,7 @@ function [path, distanceHist] = nns(Graph, start, destination)
     distanceHist = zeros(1, length(numnodes(Graph)));
     
     path = [currentNode];
+    visited = [currentNode];
     nextNode = 0;
     
     while currentNode ~= destNode
@@ -17,30 +18,22 @@ function [path, distanceHist] = nns(Graph, start, destination)
         
         for i=1:length(adjacents)
             neighbor = adjacents(i);
-            weights(i) = Graph.Edges.Weight(findedge(Graph, currentNode, neighbor));            
+            if ~(sum(ismember(visited, neighbor)))
+                weights(i) = Graph.Edges.Weight(findedge(Graph, currentNode, neighbor));  
+            else
+                weights(i) = inf;
+            end
         end
         
         leastEdgeIndex = find(weights == min(weights));
         nextNode = findnode(Graph, adjacents(leastEdgeIndex));
         distanceHist = [distanceHist, weights(leastEdgeIndex)];
-                
-        while sum(ismember(path, nextNode))
-
-            adjacents(leastEdgeIndex) = [];
-            weights(leastEdgeIndex) = [];
-            distanceHist(length(distanceHist)) = [];
-            
-            for i=1:length(adjacents)
-                neighbor = adjacents(i);
-                weights(i) = Graph.Edges.Weight(findedge(Graph, currentNode, neighbor));            
-            end
-            leastEdgeIndex = find(weights == min(weights));
-            distanceHist = [distanceHist, weights(leastEdgeIndex)];
-            nextNode = findnode(Graph, adjacents(leastEdgeIndex));
-        end
+        
+        
         
         currentNode = nextNode;
         path = [path, currentNode];
+        visited = [visited, currentNode];
         nextNode = 0;
 
     end       
