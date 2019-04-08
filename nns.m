@@ -1,4 +1,4 @@
-function [path, distanceHist] = nns(Graph, start, destination, toAvoid)
+function [path, distanceHist] = nns(Graph, start, destination)
 
 %   Initialize start, end, and current nodes
     startNode = findnode(Graph, {start});
@@ -18,7 +18,7 @@ function [path, distanceHist] = nns(Graph, start, destination, toAvoid)
         
         for i=1:length(adjacents)
             neighbor = adjacents(i);
-            if (~(sum(ismember(visited, neighbor))) && neighbor ~= toAvoid)
+            if (~(sum(ismember(visited, neighbor))))
                 weights(i) = Graph.Edges.Weight(findedge(Graph, currentNode, neighbor));  
             else
                 weights(i) = inf;
