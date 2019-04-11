@@ -1,4 +1,4 @@
-% this has problems but will have to do for now
+% Function to update the weight scaling on the graph
 function newGraph = graphModifier(G, buildings, loveBuilding)
     nodes = table2cell(G.Nodes);
 
@@ -9,7 +9,8 @@ function newGraph = graphModifier(G, buildings, loveBuilding)
         if sum(ismember(buildings,node))
             edges = outedges(G,nodes(i,1));
 
-
+            % How much the user wants to travel through buildings
+            % determines the multiplier that each weight is multiplied by
             for j = 1:length(edges)
                 G.Edges.Weight(edges(j)) = G.Edges.Weight(j)*loveBuilding; 
             end
@@ -20,3 +21,7 @@ function newGraph = graphModifier(G, buildings, loveBuilding)
 
     
 end
+
+%% TODO
+%  Adjust algorithms to differentiate between buildings and non-buildings
+%  Connect function to the GUI
