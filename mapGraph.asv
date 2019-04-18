@@ -10,10 +10,7 @@ title('Campus Sample');
 [x, y] = ginput();
 
 hold on;
-
-
-for i=1:2:length(x)
-    a = plot([x(i), x(i+1)], [y(i), y(i+1)], 'r-');
-    set(a,'LineWidth',3);
+for i=1:length(x)
+    plot([x(i), x(i+1)], 'r-');
     hold on;
 end
