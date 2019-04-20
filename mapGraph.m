@@ -17,3 +17,7 @@ for i=1:2:length(x)
     set(a,'LineWidth',3);
     hold on;
 end
+
+d = plot([x(1), x(2)], [y(1), y(2)], 'b-');
+set(d, 'LineWidth', 3);
+hold on;
