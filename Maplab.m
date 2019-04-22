@@ -22,7 +22,7 @@ function varargout = Maplab(varargin)
 
 % Edit the above text to modify the response to help Maplab
 
-% Last Modified by GUIDE v2.5 06-Apr-2019 17:43:18
+% Last Modified by GUIDE v2.5 22-Apr-2019 15:02:54
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -61,6 +61,13 @@ guidata(hObject, handles);
 % UIWAIT makes Maplab wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+    set(handles.calcButton,'Enable','off')
+    
+else
+    set(handles.calcButton,'Enable','on')
+end
+
 
 % --- Outputs from this function are returned to the command line.
 function varargout = Maplab_OutputFcn(hObject, eventdata, handles) 
@@ -73,19 +80,24 @@ function varargout = Maplab_OutputFcn(hObject, eventdata, handles)
 varargout{1} = handles.output;
 
 
-% --- Executes on selection change in currentMenu.
-function currentMenu_Callback(hObject, eventdata, handles)
-% hObject    handle to currentMenu (see GCBO)
+% --- Executes on selection change in startLoc.
+function startLoc_Callback(hObject, eventdata, handles)
+% hObject    handle to startLoc (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns currentMenu contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from currentMenu
-
+% Hints: contents = cellstr(get(hObject,'String')) returns startLoc contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from startLoc
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+    set(handles.calcButton,'Enable','off')
+    
+else
+    set(handles.calcButton,'Enable','on')
+end
 
 % --- Executes during object creation, after setting all properties.
-function currentMenu_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to currentMenu (see GCBO)
+function startLoc_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to startLoc (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -96,19 +108,25 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on selection change in popupmenu2.
-function popupmenu2_Callback(hObject, eventdata, handles)
-% hObject    handle to popupmenu2 (see GCBO)
+% --- Executes on selection change in endLoc.
+function endLoc_Callback(hObject, eventdata, handles)
+% hObject    handle to endLoc (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu2 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from popupmenu2
+% Hints: contents = cellstr(get(hObject,'String')) returns endLoc contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from endLoc
 
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+    set(handles.calcButton,'Enable','off')
+    
+else
+    set(handles.calcButton,'Enable','on')
+end
 
 % --- Executes during object creation, after setting all properties.
-function popupmenu2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to popupmenu2 (see GCBO)
+function endLoc_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to endLoc (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -125,6 +143,8 @@ function calcButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+david(handles)
+
 
 % --- Executes on button press in shortBox.
 function shortBox_Callback(hObject, eventdata, handles)
@@ -138,6 +158,13 @@ if handles.shortBox.Value == 1
     handles.allBox.Value = 0;
 end
 
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+    set(handles.calcButton,'Enable','off')
+    
+else
+    set(handles.calcButton,'Enable','on')
+end
+
 % --- Executes on button press in longBox.
 function longBox_Callback(hObject, eventdata, handles)
 % hObject    handle to longBox (see GCBO)
@@ -148,6 +175,13 @@ function longBox_Callback(hObject, eventdata, handles)
 if handles.longBox.Value == 1 
     handles.shortBox.Value = 0;
     handles.allBox.Value = 0;
+end
+
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+    set(handles.calcButton,'Enable','off')
+    
+else
+    set(handles.calcButton,'Enable','on')
 end
 
 % --- Executes on slider movement.
@@ -182,4 +216,11 @@ function allBox_Callback(hObject, eventdata, handles)
 if handles.allBox.Value == 1 
     handles.shortBox.Value = 0;
     handles.longBox.Value = 0;
+end
+
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+    set(handles.calcButton,'Enable','off')
+    
+else
+    set(handles.calcButton,'Enable','on')
 end
