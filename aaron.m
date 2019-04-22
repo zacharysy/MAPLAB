@@ -43,9 +43,11 @@ t = [bump+1 bump+2 bump+7 bump+14 bump+13 bump+8 bump+18 5 bump+1 bump+2 6 ,...
     bump+14 bump+13 bump+15 2 bump+13 bump+8 bump+8 2];
 
 
-weights = zeros(1,45); 
+weights = [28.52 26.31 58.45 47.31 40.36 43.56 62.41 60.01 49.04 27.64 48.13 102.56 37.42,...
+    44.15 51.69 67.73 44.57 56.23 70.67 54.83 44.57 46.82 24.98 18.71 11.59 13.39 30.81 26.69 47.71 39.55 44.3,...
+    8.95 5.81 19.52 16.93 18.73 17.53 23.62 12.25 7.41 20.07 22.7 22.38 17.42 13.05]; 
 
-
+disp(length(weights));
 nodeTable = table(nodes,'VariableNames',{'Name'});
 g = graph(s,t,weights, nodeTable,'omitselfloops');
 plot(g);
