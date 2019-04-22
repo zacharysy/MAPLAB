@@ -1,8 +1,8 @@
 function [path, distanceHist] = nns(Graph, start, destination)
 
 %%   Initialize start, end, and current nodes
-    startNode = findnode(Graph, {start});
-    destNode = findnode(Graph, {destination});
+    startNode = findnode(Graph, start);
+    destNode = findnode(Graph, destination);
     currentNode = startNode;
 
 %%   Initialize path and distances arrays
