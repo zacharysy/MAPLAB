@@ -1,10 +1,10 @@
 function david(handles)
 % Produce graph and highlight nodes
 
-img = imread('sample.png');
-imshow(img);
-title('Campus Sample');
-[x, y] = ginput();
+ img = imread('sample.png');
+% imshow(img);
+% title('Campus Sample');
+% [x, y] = ginput();
 
 %hold on;
 
@@ -23,17 +23,18 @@ title('Campus Sample');
 
 buildings = {'Alumni Hall', 'Lyons Hall', 'Fisher Hall', 'Howard Hall'}';
 intersections = {};
+
 for i=1:4
     intersections{i} = ['i', num2str(i)];
 end
 
 nodes = cat(1, buildings, intersections');
-xVal = x;
-yVal = y;
+xVal = [142.0000 316.0000 418.0000 474.0000 382.0000 158.0000 216.0000 20.0000]';
+yVal = [244 234 180 236 378 376 314 338]';
 bump = length(buildings);
-s = [1 1 2 3 3 4];
-t = [bump+1 bump+2 bump+3 bump+3 bump+4 bump+3];
-weights = [120 50 130 70 35 55];
+s = [1 1 2 3 3 4 2];
+t = [bump+1 bump+2 bump+3 bump+3 bump+4 bump+3 bump+1];
+weights = [120 50 130 70 35 55 12];
 
 
 nodeTable = table(nodes,xVal,yVal,'VariableNames',{'Name','XCoord','YCoord'});
@@ -41,7 +42,7 @@ G = graph(s,t,weights,nodeTable,'omitselfloops');
 
 startNode = findnode(G,handles.startLoc.String{handles.startLoc.Value});
 endNode  = findnode(G,handles.endLoc.String{handles.endLoc.Value});
-
+plot(G)
 
 if(handles.shortBox.Value == 1)
     [path,~] = dijkstra(G,startNode,endNode);
