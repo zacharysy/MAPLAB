@@ -103,6 +103,7 @@ weights = [28.52 26.31 58.45 47.31 40.36 43.56 62.41 60.01 49.04 27.64 48.13 102
 
 nodeTable = table(nodes,xVal,yVal,'VariableNames',{'Name','XCoord','YCoord'});
 G = graph(s,t,weights, nodeTable,'omitselfloops');
+G = graphModifier(G,buildings,handles.wantSlider.Value);
 
 startNode = findnode(G,handles.startLoc.String{handles.startLoc.Value});
 endNode  = findnode(G,handles.endLoc.String{handles.endLoc.Value});
