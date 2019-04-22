@@ -63,7 +63,6 @@ guidata(hObject, handles);
 
 if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
     set(handles.calcButton,'Enable','off')
-    
 else
     set(handles.calcButton,'Enable','on')
 end
@@ -90,7 +89,8 @@ function startLoc_Callback(hObject, eventdata, handles)
 %        contents{get(hObject,'Value')} returns selected item from startLoc
 if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
     set(handles.calcButton,'Enable','off')
-    
+elseif (strcmp(handles.startLoc.String(handles.startLoc.Value), handles.endLoc.String(handles.endLoc.Value)))
+    set(handles.calcButton, 'Enable', 'off')
 else
     set(handles.calcButton,'Enable','on')
 end
@@ -119,7 +119,8 @@ function endLoc_Callback(hObject, eventdata, handles)
 
 if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
     set(handles.calcButton,'Enable','off')
-    
+elseif (strcmp(handles.startLoc.String(handles.startLoc.Value), handles.endLoc.String(handles.endLoc.Value)))
+    set(handles.calcButton, 'Enable', 'off')
 else
     set(handles.calcButton,'Enable','on')
 end
@@ -143,7 +144,7 @@ function calcButton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-david(handles)
+assembleGraph(handles)
 
 
 % --- Executes on button press in shortBox.
@@ -160,7 +161,8 @@ end
 
 if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
     set(handles.calcButton,'Enable','off')
-    
+elseif (strcmp(handles.startLoc.String(handles.startLoc.Value), handles.endLoc.String(handles.endLoc.Value)))
+    set(handles.calcButton, 'Enable', 'off')
 else
     set(handles.calcButton,'Enable','on')
 end
@@ -179,7 +181,8 @@ end
 
 if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
     set(handles.calcButton,'Enable','off')
-    
+elseif (strcmp(handles.startLoc.String(handles.startLoc.Value), handles.endLoc.String(handles.endLoc.Value)))
+    set(handles.calcButton, 'Enable', 'off')
 else
     set(handles.calcButton,'Enable','on')
 end
