@@ -19,8 +19,8 @@ G = graph(s,t,weights,nodeNames);
 G = graphModifier(G,buildings,1/12);
 figure
 plot(G,'EdgeLabel',G.Edges.Weight);
-[dijkstraPath, dijksraDist] = dijkstra(G,'DeBart','Hesburgh')
-[nnsPath, nnsDist] = nns(G, 'DeBart', 'Hesburgh')
+[dijkstraPath, dijksraDist] = dijkstra(G,'DeBart','Hesburgh');
+[nnsPath, nnsDist] = nns(G, 'DeBart', 'Hesburgh');
 
 
 %% TODO
