@@ -61,6 +61,9 @@ guidata(hObject, handles);
 % UIWAIT makes Maplab wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
+img = imread('sample.png');
+imshow(img);
+
 if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
     set(handles.calcButton,'Enable','off')
 else
