@@ -22,7 +22,7 @@ function varargout = Maplab(varargin)
 
 % Edit the above text to modify the response to help Maplab
 
-% Last Modified by GUIDE v2.5 22-Apr-2019 15:02:54
+% Last Modified by GUIDE v2.5 23-Apr-2019 16:30:02
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -64,7 +64,7 @@ guidata(hObject, handles);
 img = imread('sample.png');
 imshow(img);
 
-if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0))
     set(handles.calcButton,'Enable','off')
 else
     set(handles.calcButton,'Enable','on')
@@ -90,10 +90,8 @@ function startLoc_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns startLoc contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from startLoc
-if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0))
     set(handles.calcButton,'Enable','off')
-elseif (strcmp(handles.startLoc.String(handles.startLoc.Value), handles.endLoc.String(handles.endLoc.Value)))
-    set(handles.calcButton, 'Enable', 'off')
 else
     set(handles.calcButton,'Enable','on')
 end
@@ -120,10 +118,8 @@ function endLoc_Callback(hObject, eventdata, handles)
 % Hints: contents = cellstr(get(hObject,'String')) returns endLoc contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from endLoc
 
-if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0))
     set(handles.calcButton,'Enable','off')
-elseif (strcmp(handles.startLoc.String(handles.startLoc.Value), handles.endLoc.String(handles.endLoc.Value)))
-    set(handles.calcButton, 'Enable', 'off')
 else
     set(handles.calcButton,'Enable','on')
 end
@@ -159,13 +155,10 @@ function shortBox_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of shortBox
 if handles.shortBox.Value == 1 
     handles.longBox.Value = 0;
-    handles.allBox.Value = 0;
 end
 
-if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0))
     set(handles.calcButton,'Enable','off')
-elseif (strcmp(handles.startLoc.String(handles.startLoc.Value), handles.endLoc.String(handles.endLoc.Value)))
-    set(handles.calcButton, 'Enable', 'off')
 else
     set(handles.calcButton,'Enable','on')
 end
@@ -179,13 +172,10 @@ function longBox_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of longBox
 if handles.longBox.Value == 1 
     handles.shortBox.Value = 0;
-    handles.allBox.Value = 0;
 end
 
-if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
+if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0||handles.shortBox.Value == 0))
     set(handles.calcButton,'Enable','off')
-elseif (strcmp(handles.startLoc.String(handles.startLoc.Value), handles.endLoc.String(handles.endLoc.Value)))
-    set(handles.calcButton, 'Enable', 'off')
 else
     set(handles.calcButton,'Enable','on')
 end
@@ -209,24 +199,4 @@ function wantSlider_CreateFcn(hObject, eventdata, handles)
 % Hint: slider controls usually have a light gray background.
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
-
-
-% --- Executes on button press in allBox.
-function allBox_Callback(hObject, eventdata, handles)
-% hObject    handle to allBox (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of allBox
-if handles.allBox.Value == 1 
-    handles.shortBox.Value = 0;
-    handles.longBox.Value = 0;
-end
-
-if((handles.startLoc.Value == 1 || handles.endLoc.Value == 1)&&(handles.longBox.Value == 0 ||handles.shortBox.Value == 0 ||handles.allBox.Value == 0))
-    set(handles.calcButton,'Enable','off')
-    
-else
-    set(handles.calcButton,'Enable','on')
 end

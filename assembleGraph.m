@@ -112,8 +112,6 @@ if(handles.shortBox.Value == 1)
     [path,~] = dijkstra(G,startNode,endNode);
 elseif(handles.longBox.Value == 1)
     [path,~] = longestPath(G,startNode,endNode);
-elseif(handles.allBox.Value == 1)
-    [path,~] = nns(G,startNode,endNode);
 end
 
 
