@@ -137,7 +137,7 @@ elseif(strcmp(handles.pathLength.SelectedObject.Tag,'longPath'))
 end
 
 
-disp(dist);
+handles.distTag.String = [num2str((dist(length(dist)))), 'm'];
 imshow(img);
 hold on
 
