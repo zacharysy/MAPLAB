@@ -117,9 +117,9 @@ endNode  = findnode(G,handles.endLoc.String{handles.endLoc.Value});
 if(strcmp(handles.pathLength.SelectedObject.Tag,'shortPath'))
     % Building Modifier 
     if(strcmp(handles.buildingPref.SelectedObject.Tag,'buildingLess'))
-        G = graphModifier(G,buildings,1.4);
+        G = graphModifier(G,buildings,2);
     elseif(strcmp(handles.buildingPref.SelectedObject.Tag,'buildingMore'))
-        G = graphModifier(G,buildings,0.5);
+        G = graphModifier(G,buildings,0.2);
     end
 
     [path,~] = dijkstra(G,startNode,endNode);
