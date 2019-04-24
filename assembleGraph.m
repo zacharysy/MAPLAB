@@ -141,10 +141,10 @@ handles.distTag.String = [num2str((dist(length(dist)))), 'm'];
 imshow(img);
 hold on
 
-
-for i = 1:length(path)-1
-    
+for i = 1:length(path)
     plot(handles.mapAxes,[G.Nodes.XCoord(path(i)), G.Nodes.XCoord(path(i+1))],[G.Nodes.YCoord(path(i)), G.Nodes.YCoord(path(i+1))],'-b','LineWidth',3)
+    pause(0.2);
+        drawnow;
 
 end
 
