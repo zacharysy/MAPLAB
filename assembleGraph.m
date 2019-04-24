@@ -19,6 +19,7 @@ img = imread('sample.png');
 % set(d, 'LineWidth', 3);
 % hold on;
 
+%% Building Coordinates
 x = [184.9073
   244.3567
   342.5774
@@ -74,10 +75,13 @@ y = [315.5171
   244.4363
   248.3134
   256.0677];
+
 %% Make Graph
 
 buildings = {'Rockne Memorial', 'Lyons Hall', 'Morrissey Hall', 'Howard Hall', 'Pangborn Hall', 'Fisher Hall', 'South Dining Hall', 'Badin Hall'}';
+
 intersections = {};
+
 for i=1:19
     intersections{i} = ['i', num2str(i)];
 end
@@ -85,8 +89,9 @@ end
 nodes = cat(1, buildings, intersections');
 xVal = x;
 yVal = y;
-disp(length(x))
+
 bump = length(buildings);
+
 s = [1 1 1 bump+7 bump+7 bump+7 bump+7 bump+7 bump+7 5 5 5 6 bump+3 bump+3 7 7 7 7 bump+4 8,...
     bump+5 bump+5 bump+16 bump+17 bump+11 bump+11 bump+11 bump+11 bump+6 bump+6 bump+6 bump+6,...
     bump+10 bump+10 bump+10 3 bump+12 bump+12 bump+14 bump+14 bump+14 bump+13 bump+9 bump+15];
@@ -103,14 +108,23 @@ weights = [28.52 26.31 58.45 47.31 40.36 43.56 62.41 60.01 49.04 27.64 48.13 102
 
 nodeTable = table(nodes,xVal,yVal,'VariableNames',{'Name','XCoord','YCoord'});
 G = graph(s,t,weights, nodeTable,'omitselfloops');
-G = graphModifier(G,buildings,handles.wantSlider.Value);
 
+% Building Modifier 
+if(strcmp(handles.buildingPref.SelectedObject.Tag,'buildingLess'))
+    G = graphModifier(G,buildings,1.4);
+elseif(strcmp(handles.buildingPref.SelectedObject.Tag,'buildingMore'))
+    G = graphModifier(G,buildings,0.5);
+end
+
+
+% Getting Start and End node
 startNode = findnode(G,handles.startLoc.String{handles.startLoc.Value});
 endNode  = findnode(G,handles.endLoc.String{handles.endLoc.Value});
 
-if(handles.shortBox.Value == 1)
+% Path Length
+if(strcmp(handles.pathLength.SelectedObject.Tag,'shortPath'))
     [path,~] = dijkstra(G,startNode,endNode);
-elseif(handles.longBox.Value == 1)
+elseif(strcmp(handles.pathLength.SelectedObject.Tag,'longPath'))
     [path,~] = longestPath(G,startNode,endNode);
 end
 
