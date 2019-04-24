@@ -109,29 +109,34 @@ weights = [28.52 26.31 58.45 47.31 40.36 43.56 62.41 60.01 49.04 27.64 48.13 102
 nodeTable = table(nodes,xVal,yVal,'VariableNames',{'Name','XCoord','YCoord'});
 G = graph(s,t,weights, nodeTable,'omitselfloops');
 
-% Building Modifier 
-if(strcmp(handles.buildingPref.SelectedObject.Tag,'buildingLess'))
-    G = graphModifier(G,buildings,1.4);
-elseif(strcmp(handles.buildingPref.SelectedObject.Tag,'buildingMore'))
-    G = graphModifier(G,buildings,0.5);
-end
-
-
 % Getting Start and End node
 startNode = findnode(G,handles.startLoc.String{handles.startLoc.Value});
 endNode  = findnode(G,handles.endLoc.String{handles.endLoc.Value});
 
 % Path Length
 if(strcmp(handles.pathLength.SelectedObject.Tag,'shortPath'))
+    % Building Modifier 
+    if(strcmp(handles.buildingPref.SelectedObject.Tag,'buildingLess'))
+        G = graphModifier(G,buildings,1.4);
+    elseif(strcmp(handles.buildingPref.SelectedObject.Tag,'buildingMore'))
+        G = graphModifier(G,buildings,0.5);
+    end
+
     [path,~] = dijkstra(G,startNode,endNode);
+    
 elseif(strcmp(handles.pathLength.SelectedObject.Tag,'longPath'))
-    [path,~] = longestPath(G,startNode,endNode);
+    % Building Modifier 
+    if(strcmp(handles.buildingPref.SelectedObject.Tag,'buildingLess'))
+        G = graphModifier(G,buildings,0.5);
+    elseif(strcmp(handles.buildingPref.SelectedObject.Tag,'buildingMore'))
+        G = graphModifier(G,buildings,1.4);
+    end
+    
+    [path,~] = longestPath(G,startNode,endNode,handles);%nns(G,startNode,endNode,handles);
 end
 
 
 imshow(img);
-disp(path)
-disp(G.Nodes.XCoord(path(1)))
 hold on
 
 

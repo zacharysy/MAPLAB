@@ -1,4 +1,4 @@
-function [path, distanceHist] = nns(Graph, start, destination)
+function [path, distanceHist] = nns(Graph, start, destination, handles)
 
 %%   Initialize start, end, and current nodes
     startNode = findnode(Graph, start);
@@ -19,6 +19,7 @@ function [path, distanceHist] = nns(Graph, start, destination)
         
         for i=1:length(adjacents)
             neighbor = adjacents(i);
+            
             % As long as the neighbor isn't visited, update the weight
             % array
             if (~(sum(ismember(visited, neighbor))))
@@ -31,8 +32,22 @@ function [path, distanceHist] = nns(Graph, start, destination)
         end
         
         leastEdgeIndex = find(weights == min(weights));
+        
+        if(~leastEdgeIndex)
+            break
+        end
+            
         nextNode = findnode(Graph, adjacents(leastEdgeIndex));
         distanceHist = [distanceHist, weights(leastEdgeIndex)];
+        
+        if(length(nextNode)>1)
+            i = 1;
+            nextNode = nextNode(i);
+            while(currentNode == nextNode)
+                nextNode = nextNode(i);
+                i=i+1;
+            end
+        end
         
         % Update the current node and path
         currentNode = nextNode;

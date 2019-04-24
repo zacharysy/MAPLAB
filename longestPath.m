@@ -1,4 +1,4 @@
-function [path,finalDist] = longestPath(aGraph, startName, endName)
+function [path,finalDist] = longestPath(aGraph, startName, endName,handles)
     startNode = findnode(aGraph,startName);
     endNode = findnode(aGraph,endName);
     path = [];
@@ -31,6 +31,9 @@ function [path,finalDist] = longestPath(aGraph, startName, endName)
         % Records distances to adjacent nodes
         for i = 1:length(adjacents)
             neighbor = adjacents(i);
+            
+            plot(handles.mapAxes,[aGraph.Nodes.XCoord(currentNode), aGraph.Nodes.XCoord(neighbor)],[aGraph.Nodes.YCoord(currentNode), aGraph.Nodes.YCoord(neighbor)],'-ro','LineWidth',3)
+            
             weight = aGraph.Edges.Weight(findedge(aGraph,currentNode,neighbor));
             newDist = distances(currentNode) + weight;
 
@@ -55,7 +58,11 @@ function [path,finalDist] = longestPath(aGraph, startName, endName)
         end
 
 %% Update current node! yay.
-        currentNode = findnode(aGraph,nextNode);
+        if ~(nextNode == 0)
+            currentNode = findnode(aGraph,nextNode);
+        else
+            break
+        end
 
     end
 
@@ -66,8 +73,12 @@ function [path,finalDist] = longestPath(aGraph, startName, endName)
     lastNode = endNode;
 
     for nil = 1:length(visited)
-        visit = fromNode(lastNode);
-
+        if lastNode
+            visit = fromNode(lastNode);
+        else
+            visit = 0;
+        end
+        
         if visit
             path = [path,visit];
             finalDist = [finalDist,distances(visit)];
