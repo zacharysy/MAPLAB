@@ -1,4 +1,4 @@
-function [path,finalDist] = longestPath(aGraph, startName, endName,handles)
+function [path,finalDist] = longestPath(aGraph, origG, startName, endName,handles)
     startNode = findnode(aGraph,startName);
     endNode = findnode(aGraph,endName);
     path = [];
@@ -13,6 +13,7 @@ function [path,finalDist] = longestPath(aGraph, startName, endName,handles)
     end
 
     distances(startNode) = 0;
+    origDist = distances;
 
     currentNode = startNode;
 
@@ -39,6 +40,7 @@ function [path,finalDist] = longestPath(aGraph, startName, endName,handles)
 
             if distances(neighbor) < newDist
                 distances(neighbor) = newDist;
+                origDist(neighbor) = origDist(currentNode) + origG.Edges.Weight(findedge(aGraph,currentNode,neighbor));
                 fromNode(neighbor) = currentNode;
             end
         end
@@ -69,7 +71,7 @@ function [path,finalDist] = longestPath(aGraph, startName, endName,handles)
 
 %% Creates a readable path
     path = [path,endNode];
-    finalDist = distances(endNode);
+    finalDist = origDist(endNode);
     lastNode = endNode;
 
     for nil = 1:length(visited)
@@ -81,7 +83,7 @@ function [path,finalDist] = longestPath(aGraph, startName, endName,handles)
         
         if visit
             path = [path,visit];
-            finalDist = [finalDist,distances(visit)];
+            finalDist = [finalDist,origDist(visit)];
         end
 
         lastNode = visit;

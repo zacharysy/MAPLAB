@@ -1,4 +1,4 @@
-function [path,finalDist] = dijkstra(aGraph, startName, endName)
+function [path,finalDist] = dijkstra(aGraph,origG, startName, endName)
     startNode = findnode(aGraph,startName);
     endNode = findnode(aGraph,endName);
     path = [];
@@ -13,7 +13,9 @@ function [path,finalDist] = dijkstra(aGraph, startName, endName)
     end
 
     distances(startNode) = 0;
-
+    
+    origDist = distances;
+    
     currentNode = startNode;
 
 %% Visiting Adjacents
@@ -36,6 +38,7 @@ function [path,finalDist] = dijkstra(aGraph, startName, endName)
 
             if distances(neighbor) > newDist
                 distances(neighbor) = newDist;
+                origDist(neighbor) = origDist(currentNode) + origG.Edges.Weight(findedge(aGraph,currentNode,neighbor));
                 fromNode(neighbor) = currentNode;
             end
         end
@@ -62,7 +65,7 @@ function [path,finalDist] = dijkstra(aGraph, startName, endName)
 
 %% Creates a readable path
     path = [path,endNode];
-    finalDist = [distances(endNode)];
+    finalDist = [origDist(endNode)];
     lastNode = endNode;
 
     while lastNode > 0
@@ -70,7 +73,7 @@ function [path,finalDist] = dijkstra(aGraph, startName, endName)
 
         if visit
             path = [path,visit];
-            finalDist = [finalDist,distances(visit)];
+            finalDist = [finalDist,origDist(visit)];
         end
 
         lastNode = visit;
