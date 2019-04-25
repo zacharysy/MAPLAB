@@ -65,6 +65,9 @@ img = imread('sample.png');
 imshow(img);
 
 
+
+[y, Fs] = audioread('wii.mp3');
+sound(y,Fs);
   
 
 
