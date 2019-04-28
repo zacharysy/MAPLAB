@@ -21,7 +21,3 @@ function newGraph = graphModifier(G, buildings, loveBuilding)
 
     
 end
-
-%% TODO
-%  Adjust algorithms to differentiate between buildings and non-buildings
-%  Connect function to the GUI
